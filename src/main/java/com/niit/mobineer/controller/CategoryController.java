@@ -60,14 +60,14 @@ public class CategoryController {
 			if(category.isEnabled()==false)						// category is disabled
 			{
 				categoryDAO.undelete(category);					// category is enabled now
-				mv.addObject("message","Category Already Exist with the id "+id+ " but was disabled, now this Category has been enabled so you can edit the Category.");
+				mv.addObject("message","Category Already Exist with the ID "+id+ " but was disabled, now this Category has been enabled so you can edit the Category.");
 				
 			}
 			else if(category.isEnabled()==true)					// category already exist
 			{
 				
 				
-				mv.addObject("message","Category Already Exist with the id "+id);
+				mv.addObject("message","Category Already Exist with the ID "+id);
 				return mv;
 			}
 		}
@@ -108,9 +108,7 @@ public class CategoryController {
 		
 		session.setAttribute("categoryList", categoryDAO.list());
 		session.setAttribute("category", category);
-		
-		log.debug("Ending of the method delete Category");
-		
+				
 		return mv;
 	}
 	
@@ -167,9 +165,9 @@ public class CategoryController {
 		
 		if (categoryDAO.getCategoryById(id) == null) 
 		{
-			log.debug("Category does not Exist with  in Database");
+
 			
-			mv.addObject("message","Category does not Exist with the id "+id);			// category does not exist
+			mv.addObject("message","Category does not Exist with the ID "+id);			// category does not exist
 			return mv;
 		}
 		else 											//actually else is not required if return statement is there in if condition

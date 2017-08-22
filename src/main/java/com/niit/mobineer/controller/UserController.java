@@ -5,9 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -16,14 +14,17 @@ import com.niit.mobineer.domain.User;
 
 
 @Controller
-@SessionAttributes("user")
 public class UserController {
 	
 
-	@Autowired User user;
-	@Autowired UserDAO userDAO;
+	@Autowired 
+	User user;
 	
-	@Autowired HttpSession session;
+	@Autowired 
+	UserDAO userDAO;
+	
+	@Autowired 
+	HttpSession session;
 	
 	@PostMapping("/validate")
 	public ModelAndView login(@RequestParam("userName") String id, @RequestParam("password") String password)
@@ -42,7 +43,7 @@ public class UserController {
 			 
 			 //${message}  - to display in the Home.jsp
 			 mv.addObject("message", " Welcome To Mobineer " + user.getName());
-			 
+			 session.setAttribute("loggedUser", user.getId());
 			
 			 //check whether user is customer or administrator
 			 
@@ -53,7 +54,6 @@ public class UserController {
 			 }
 			 else
 			 {
-
 				 mv.addObject("isAdmin", "false");
 			 }
 			 
@@ -61,12 +61,9 @@ public class UserController {
 		 }
 		 else
 		 {
-
 			 mv.addObject("message", "Invalid credentials..please try again.");
 		 }
-		 
-		 return mv;
-		
+	return mv;
 	}
 
 }
